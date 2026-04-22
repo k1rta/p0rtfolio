@@ -1,11 +1,13 @@
 ---
+import Base from '../layouts/Base.astro';
+import { config } from '../config';
+
+const { personal } = config;
 ---
-<html lang="en">
-  <head>
-    <meta charset="utf-8" />
-    <title>Portfolio — Kirta-Linda Karits</title>
-  </head>
-  <body>
-    <h1>Hello Kirta!</h1>
-  </body>
-</html>
+
+<Base>
+  <main id="main-content">
+    <h1>{personal.name}</h1>
+    <p>{personal.title}</p>
+  </main>
+</Base>
