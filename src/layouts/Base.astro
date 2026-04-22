@@ -1,0 +1,75 @@
+---
+interface Props {
+  title?: string;
+  description?: string;
+}
+
+const {
+  title = "Kirta-Linda Karits | QA Engineer & Test Automation Specialist",
+  description = "QA Engineer specializing in test automation, CI/CD, and quality assurance with expertise in Cypress, Playwright, and TypeScript."
+} = Astro.props;
+---
+
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <meta name="generator" content={Astro.generator} />
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    
+    <title>{title}</title>
+    <meta name="description" content={description} />
+    
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:url" content={Astro.url} />
+    
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content={title} />
+    <meta name="twitter:description" content={description} />
+    
+    <script is:inline>
+      document.documentElement.setAttribute('data-theme', 'dark');
+
+      window.toggleTheme = () => {
+        const currentTheme = document.documentElement.getAttribute('data-theme');
+        const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
+        document.documentElement.setAttribute('data-theme', newTheme);
+      };
+    </script>
+    
+    <style is:global>
+      @import '../styles/global.css';
+    </style>
+  </head>
+  <body>
+    <a href="#main-content" class="skip-to-content">
+      Skip to content
+    </a>
+    
+    <slot />
+    
+    <style>
+      .skip-to-content {
+        position: absolute;
+        top: -40px;
+        left: 0;
+        background: var(--color-accent);
+        color: var(--color-bg);
+        padding: var(--space-2) var(--space-4);
+        text-decoration: none;
+        font-weight: 500;
+        z-index: 100;
+      }
+      
+      .skip-to-content:focus {
+        top: 0;
+      }
+    </style>
+  </body>
+</html>
