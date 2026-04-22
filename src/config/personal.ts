@@ -12,36 +12,36 @@ export const config: SiteConfig = {
   experiences: [
     {
       company: "Helmes",
-      role: "QA Engineer",
-      period: "2024 - Present",
-      achievement: "Leading test automation initiatives and quality assurance processes for enterprise clients",
-      tools: ["Cypress", "TypeScript", "GitHub Actions", "Azure DevOps"]
+      role: "Software QA Tester",
+      period: "02/2024 – 09/2024",
+      achievement: "Led quality strategy across FE, BE, iOS; built E2E coverage with Karate and Cypress; monitored with Grafana and Power BI",
+      tools: ["Cypress", "Karate", "TypeScript", "Grafana", "Power BI"]
     },
     {
       company: "Klaus",
       role: "QA Engineer",
-      period: "2023 - 2024",
-      achievement: "Implemented comprehensive E2E testing framework, reducing production bugs by 40%",
-      tools: ["Playwright", "TypeScript", "CircleCI", "Grafana"]
+      period: "06/2023 – 10/2023",
+      achievement: "Authored TypeScript/Cypress tests eliminating manual regression overhead",
+      tools: ["Cypress", "TypeScript", "CircleCI"]
     },
     {
       company: "Cybernetica",
       role: "QA Engineer",
-      period: "2022 - 2023",
+      period: "08/2022 – 05/2023",
       achievement: "Developed automated testing solutions for critical government systems",
       tools: ["Selenium", "Java", "Jenkins", "TestRail"]
     },
     {
       company: "Nekmit / Kindred Group",
-      role: "QA Engineer",
-      period: "2018 - 2022",
-      achievement: "Built and maintained test automation framework for high-traffic gaming platform",
-      tools: ["Cypress", "JavaScript", "Karate", "Jenkins", "Power BI"]
+      role: "Test Automation Developer",
+      period: "01/2018 – 07/2022",
+      achievement: "Reduced regression failures by 70% via Java/Selenium → Cypress migration; mentored QA teams on modern automation patterns",
+      tools: ["Cypress", "Selenium", "JavaScript", "Java", "Karate", "Jenkins", "Power BI"]
     },
     {
       company: "iGame",
       role: "QA Tester",
-      period: "2016 - 2017",
+      period: "07/2016 – 12/2017",
       achievement: "Performed manual and automated testing for online gaming applications",
       tools: ["Selenium", "JavaScript", "JIRA"]
     }
@@ -71,7 +71,7 @@ export const config: SiteConfig = {
   skills: [
     {
       category: "Test Automation",
-      items: ["Cypress", "Playwright", "Selenium", "Karate", "WebdriverIO"]
+      items: ["Cypress", "Playwright", "Selenium", "Karate"]
     },
     {
       category: "Languages",
