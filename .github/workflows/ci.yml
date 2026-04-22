@@ -16,9 +16,9 @@ jobs:
     timeout-minutes: 10
     
     steps:
-      - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683  # v4
+      - uses: actions/checkout@v4
 
-      - uses: actions/setup-node@1d0ff469b16cac7bbaee5bfa0f9cc7b7a4b80668  # v4
+      - uses: actions/setup-node@v4
         with:
           node-version: '20'
           cache: 'npm'
