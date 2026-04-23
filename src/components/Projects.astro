@@ -1,0 +1,303 @@
+---
+import { config } from '../config';
+---
+
+<section class="projects" id="projects">
+  <div class="projects-container">
+    <div class="projects-header">
+      <p class="section-label">PROJECTS</p>
+      <h2 class="section-heading">Proof of work</h2>
+      <p class="section-subtitle">Real repos with real CI — click to explore</p>
+    </div>
+
+    <div class="projects-grid">
+      {config.projects.map((project, index) => (
+        <div class="project-card reveal" style={`animation-delay: ${index * 0.1}s`}>
+          <div class="project-header">
+            <h3 class="project-name">{project.name}</h3>
+            <a href={project.repoUrl} target="_blank" rel="noopener noreferrer" class="github-link" aria-label="View repository">
+              <i data-lucide="github" class="icon"></i>
+            </a>
+          </div>
+
+          {project.ciUrl && (
+            <div class="ci-badge-container">
+              <img src={project.ciUrl} alt="CI status" class="ci-badge" />
+            </div>
+          )}
+
+          <p class="project-description">{project.description}</p>
+
+          <div class="project-tools">
+            {project.tools.map((tool) => (
+              <span class="tool-badge">{tool}</span>
+            ))}
+          </div>
+
+          <div class="project-links">
+            <a href={project.repoUrl} target="_blank" rel="noopener noreferrer" class="project-link project-link-primary">
+              <span>View Repo</span>
+              <i data-lucide="external-link" class="icon-sm"></i>
+            </a>
+            {project.liveUrl && (
+              <a href={project.liveUrl} target="_blank" rel="noopener noreferrer" class="project-link project-link-secondary">
+                <span>Live Demo</span>
+                <i data-lucide="globe" class="icon-sm"></i>
+              </a>
+            )}
+          </div>
+        </div>
+      ))}
+
+      <div class="project-card project-card-coming-soon reveal" style={`animation-delay: ${config.projects.length * 0.1}s`}>
+        <div class="project-header">
+          <h3 class="project-name">ML / Data Project</h3>
+          <span class="badge-in-progress">In Progress</span>
+        </div>
+
+        <p class="project-description">Colab notebook — TalTech ML coursework. Coming soon.</p>
+
+        <div class="project-tools">
+          <span class="tool-badge">Python</span>
+          <span class="tool-badge">Jupyter</span>
+          <span class="tool-badge">TensorFlow</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<style>
+  .projects {
+    padding: clamp(var(--space-12), 8vw, var(--space-24));
+    background: var(--color-bg);
+  }
+
+  .projects-container {
+    max-width: 1400px;
+    margin: 0 auto;
+  }
+
+  .projects-header {
+    margin-bottom: var(--space-12);
+    text-align: left;
+  }
+
+  .section-label {
+    font-size: var(--text-xs);
+    color: var(--color-muted);
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    font-weight: 600;
+    margin-bottom: var(--space-3);
+  }
+
+  .section-heading {
+    font-size: var(--text-xl);
+    font-weight: 600;
+    color: var(--color-text);
+    margin-bottom: var(--space-3);
+    letter-spacing: -0.02em;
+  }
+
+  .section-subtitle {
+    font-size: var(--text-base);
+    color: var(--color-muted);
+    line-height: 1.6;
+  }
+
+  .projects-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
+    gap: var(--space-6);
+  }
+
+  .project-card {
+    background: var(--color-surface);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-lg);
+    padding: var(--space-6);
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-4);
+    transition: transform 0.2s ease, border-color 0.2s ease, box-shadow 0.2s ease;
+  }
+
+  .project-card:hover {
+    transform: translateY(-4px);
+    border-color: rgba(0, 229, 160, 0.3);
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.3);
+  }
+
+  .project-card-coming-soon {
+    border-style: dashed;
+    border-color: var(--color-border);
+  }
+
+  .project-card-coming-soon:hover {
+    transform: translateY(-2px);
+    border-color: rgba(255, 193, 7, 0.3);
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.2);
+  }
+
+  .project-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: var(--space-3);
+  }
+
+  .project-name {
+    font-size: var(--text-lg);
+    font-weight: 700;
+    color: var(--color-text);
+    margin: 0;
+  }
+
+  .github-link {
+    color: var(--color-muted);
+    transition: color 0.2s ease;
+    display: flex;
+    align-items: center;
+    text-decoration: none;
+  }
+
+  .github-link:hover {
+    color: var(--color-text);
+  }
+
+  .icon {
+    width: 20px;
+    height: 20px;
+  }
+
+  .icon-sm {
+    width: 16px;
+    height: 16px;
+  }
+
+  .ci-badge-container {
+    margin-top: calc(-1 * var(--space-2));
+  }
+
+  .ci-badge {
+    height: 20px;
+    border-radius: var(--radius-sm);
+  }
+
+  .badge-in-progress {
+    display: inline-flex;
+    align-items: center;
+    padding: var(--space-1) var(--space-3);
+    background: rgba(255, 193, 7, 0.1);
+    border: 1px solid rgba(255, 193, 7, 0.3);
+    border-radius: var(--radius-full);
+    font-size: var(--text-xs);
+    color: #ffc107;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+  }
+
+  .project-description {
+    font-size: var(--text-base);
+    color: var(--color-muted);
+    line-height: 1.6;
+    flex-grow: 1;
+  }
+
+  .project-tools {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-2);
+  }
+
+  .tool-badge {
+    display: inline-flex;
+    align-items: center;
+    background: var(--color-surface-2);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-full);
+    padding: var(--space-1) var(--space-3);
+    font-size: var(--text-sm);
+    color: var(--color-text);
+    font-weight: 500;
+    transition: border-color 0.2s ease, background-color 0.2s ease;
+  }
+
+  .tool-badge:hover {
+    border-color: var(--color-accent);
+    background: rgba(0, 229, 160, 0.05);
+  }
+
+  .project-links {
+    display: flex;
+    gap: var(--space-3);
+    padding-top: var(--space-2);
+    border-top: 1px solid var(--color-border);
+  }
+
+  .project-link {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--space-2);
+    font-size: var(--text-sm);
+    font-weight: 500;
+    text-decoration: none;
+    transition: color 0.2s ease;
+  }
+
+  .project-link-primary {
+    color: var(--color-accent);
+  }
+
+  .project-link-primary:hover {
+    color: #00ffb3;
+  }
+
+  .project-link-secondary {
+    color: var(--color-muted);
+  }
+
+  .project-link-secondary:hover {
+    color: var(--color-text);
+  }
+
+  @media (max-width: 768px) {
+    .projects-grid {
+      grid-template-columns: 1fr;
+    }
+
+    .section-heading {
+      font-size: var(--text-lg);
+    }
+
+    .project-links {
+      flex-direction: column;
+      gap: var(--space-2);
+    }
+  }
+</style>
+
+<script>
+  const observerOptions = {
+    threshold: 0.1,
+    rootMargin: '0px 0px -50px 0px'
+  };
+
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('visible');
+      }
+    });
+  }, observerOptions);
+
+  document.querySelectorAll('.projects .reveal').forEach(el => {
+    observer.observe(el);
+  });
+
+  import('https://unpkg.com/lucide@latest/dist/esm/lucide.js').then((lucide) => {
+    lucide.createIcons();
+  });
+</script>
