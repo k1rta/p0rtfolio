@@ -1,0 +1,341 @@
+---
+import { config } from '../config';
+
+const { name, title } = config.personal;
+---
+
+<section class="hero">
+  <div class="hero-content">
+    <div class="hero-left">
+      <div class="availability reveal">
+        <span class="pulse-dot"></span>
+        <span class="availability-text">Available for work</span>
+      </div>
+      
+      <h1 class="hero-heading reveal">{name}</h1>
+      
+      <p class="hero-subtitle reveal">{title}</p>
+      
+      <p class="hero-tagline reveal">
+        10+ years building testing systems that teams actually use
+      </p>
+      
+      <div class="hero-badges reveal">
+        <span class="badge">Remote</span>
+        <span class="badge">Part-time & Full-time</span>
+      </div>
+      
+      <div class="hero-actions reveal">
+        <a href="#projects" class="btn btn-primary">View Projects</a>
+        <a href="#" class="btn btn-ghost" download>Download CV</a>
+      </div>
+    </div>
+    
+    <div class="hero-right">
+      <div class="terminal reveal">
+        <div class="terminal-header">
+          <div class="terminal-dots">
+            <span class="dot dot-red"></span>
+            <span class="dot dot-yellow"></span>
+            <span class="dot dot-green"></span>
+          </div>
+          <div class="terminal-title">~/portfolio — cypress run</div>
+        </div>
+        <div class="terminal-body">
+          <div class="terminal-line">$ npx cypress run</div>
+          <div class="terminal-line terminal-success">  ✓  47 passing (3.2s)</div>
+          <div class="terminal-line"></div>
+          <div class="terminal-line">  cypress/e2e/api/users.spec.ts</div>
+          <div class="terminal-line terminal-success">    ✓ GET /users → 200</div>
+          <div class="terminal-line terminal-success">    ✓ POST /users creates record</div>
+          <div class="terminal-line"></div>
+          <div class="terminal-line">  cypress/e2e/ui/login.spec.ts</div>
+          <div class="terminal-line terminal-success">    ✓ Login flow completes</div>
+          <div class="terminal-line terminal-success">    ✓ Logout clears session</div>
+          <div class="terminal-line"></div>
+          <div class="terminal-line terminal-final">  All tests passed · 0 failures · CI ✓</div>
+          <div class="terminal-cursor"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<style>
+  .hero {
+    min-height: 100dvh;
+    display: flex;
+    align-items: center;
+    padding: clamp(var(--space-12), 8vw, var(--space-32));
+  }
+
+  .hero-content {
+    width: 100%;
+    max-width: 1400px;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: var(--space-16);
+    align-items: center;
+  }
+
+  .hero-left {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-6);
+    text-align: left;
+  }
+
+  .availability {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--space-2);
+    font-size: var(--text-sm);
+    color: var(--color-text);
+    width: fit-content;
+  }
+
+  .pulse-dot {
+    width: 8px;
+    height: 8px;
+    background-color: #28c840;
+    border-radius: 50%;
+    animation: pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+  }
+
+  .availability-text {
+    font-weight: 500;
+  }
+
+  .hero-heading {
+    font-size: var(--text-hero);
+    font-weight: 600;
+    line-height: 1.1;
+    letter-spacing: -0.02em;
+    color: var(--color-text);
+  }
+
+  .hero-subtitle {
+    font-size: var(--text-xl);
+    font-weight: 500;
+    color: var(--color-text);
+    line-height: 1.3;
+  }
+
+  .hero-tagline {
+    font-size: var(--text-base);
+    color: var(--color-muted);
+    line-height: 1.6;
+  }
+
+  .hero-badges {
+    display: flex;
+    gap: var(--space-3);
+    flex-wrap: wrap;
+  }
+
+  .badge {
+    display: inline-flex;
+    align-items: center;
+    padding: var(--space-2) var(--space-4);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-lg);
+    font-size: var(--text-sm);
+    color: var(--color-text);
+    font-weight: 500;
+    background: transparent;
+  }
+
+  .hero-actions {
+    display: flex;
+    gap: var(--space-4);
+    margin-top: var(--space-4);
+  }
+
+  .btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: var(--space-3) var(--space-6);
+    border-radius: var(--radius-md);
+    font-size: var(--text-base);
+    font-weight: 500;
+    text-decoration: none;
+    transition: all 0.2s ease;
+    cursor: pointer;
+  }
+
+  .btn-primary {
+    border: 1px solid var(--color-accent);
+    background: transparent;
+    color: var(--color-accent);
+  }
+
+  .btn-primary:hover {
+    background: rgba(0, 229, 160, 0.1);
+  }
+
+  .btn-ghost {
+    border: 1px solid var(--color-muted);
+    background: transparent;
+    color: var(--color-muted);
+  }
+
+  .btn-ghost:hover {
+    border-color: var(--color-text);
+    color: var(--color-text);
+  }
+
+  .terminal {
+    background: var(--color-surface);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-lg);
+    overflow: hidden;
+  }
+
+  .terminal-header {
+    display: flex;
+    align-items: center;
+    gap: var(--space-4);
+    padding: var(--space-3) var(--space-4);
+    background: var(--color-surface-2);
+    border-bottom: 1px solid var(--color-border);
+  }
+
+  .terminal-dots {
+    display: flex;
+    gap: var(--space-2);
+  }
+
+  .dot {
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+  }
+
+  .dot-red {
+    background-color: #ff5f57;
+  }
+
+  .dot-yellow {
+    background-color: #febc2e;
+  }
+
+  .dot-green {
+    background-color: #28c840;
+  }
+
+  .terminal-title {
+    font-size: var(--text-sm);
+    color: var(--color-muted);
+    font-family: 'Geist Mono', monospace;
+  }
+
+  .terminal-body {
+    padding: var(--space-6);
+    font-family: 'Geist Mono', monospace;
+    font-size: var(--text-sm);
+    line-height: 1.8;
+    color: var(--color-text);
+  }
+
+  .terminal-line {
+    margin-bottom: var(--space-1);
+  }
+
+  .terminal-success {
+    color: var(--color-accent);
+  }
+
+  .terminal-final {
+    font-weight: 500;
+  }
+
+  .terminal-cursor {
+    display: inline-block;
+    width: 8px;
+    height: 16px;
+    background-color: var(--color-accent);
+    margin-left: 2px;
+    animation: blink 1s step-end infinite;
+  }
+
+  @keyframes blink {
+    0%, 50% {
+      opacity: 1;
+    }
+    51%, 100% {
+      opacity: 0;
+    }
+  }
+
+  .reveal {
+    animation-delay: 0s;
+  }
+
+  .reveal:nth-child(1) {
+    animation-delay: 0.1s;
+  }
+
+  .reveal:nth-child(2) {
+    animation-delay: 0.2s;
+  }
+
+  .reveal:nth-child(3) {
+    animation-delay: 0.3s;
+  }
+
+  .reveal:nth-child(4) {
+    animation-delay: 0.4s;
+  }
+
+  .reveal:nth-child(5) {
+    animation-delay: 0.5s;
+  }
+
+  .reveal:nth-child(6) {
+    animation-delay: 0.6s;
+  }
+
+  @media (max-width: 768px) {
+    .hero-content {
+      grid-template-columns: 1fr;
+      gap: var(--space-12);
+    }
+
+    .hero-left {
+      order: 1;
+    }
+
+    .hero-right {
+      order: 2;
+    }
+
+    .hero-actions {
+      flex-direction: column;
+    }
+
+    .btn {
+      width: 100%;
+    }
+  }
+</style>
+
+<script>
+  const observerOptions = {
+    threshold: 0.1,
+    rootMargin: '0px 0px -50px 0px'
+  };
+
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('visible');
+      }
+    });
+  }, observerOptions);
+
+  document.querySelectorAll('.reveal').forEach(el => {
+    observer.observe(el);
+  });
+</script>
