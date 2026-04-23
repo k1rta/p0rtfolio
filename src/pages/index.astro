@@ -1,13 +1,10 @@
 ---
 import Base from '../layouts/Base.astro';
-import { config } from '../config';
-
-const { personal } = config;
+import Hero from '../components/Hero.astro';
 ---
 
 <Base>
   <main id="main-content">
-    <h1>{personal.name}</h1>
-    <p>{personal.title}</p>
+    <Hero />
   </main>
 </Base>
