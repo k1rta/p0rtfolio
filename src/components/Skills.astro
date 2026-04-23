@@ -1,0 +1,202 @@
+---
+import { config } from '../config';
+
+const iconMap: Record<string, string> = {
+  'Test Automation': 'shield-check',
+  'Languages': 'code-2',
+  'CI/CD': 'git-branch',
+  'Observability': 'bar-chart-2',
+  'Tools & Platforms': 'check-circle'
+};
+
+const toolIconMap: Record<string, string> = {
+  'Cypress': 'https://cdn.simpleicons.org/cypress/00e5a0',
+  'Playwright': 'https://cdn.simpleicons.org/playwright/00e5a0',
+  'TypeScript': 'https://cdn.simpleicons.org/typescript/3178C6',
+  'JavaScript': 'https://cdn.simpleicons.org/javascript/F7DF1E',
+  'Python': 'https://cdn.simpleicons.org/python/3776AB',
+  'GitHub Actions': 'https://cdn.simpleicons.org/github/ffffff',
+  'Docker': 'https://cdn.simpleicons.org/docker/2496ED',
+  'Java': 'https://cdn.simpleicons.org/openjdk/ffffff',
+  'Git': 'https://cdn.simpleicons.org/git/F05032',
+  'Jenkins': 'https://cdn.simpleicons.org/jenkins/D24939',
+  'CircleCI': 'https://cdn.simpleicons.org/circleci/343434',
+  'Grafana': 'https://cdn.simpleicons.org/grafana/F46800',
+  'Azure DevOps': 'https://cdn.simpleicons.org/azuredevops/0078D7',
+  'Vercel': 'https://cdn.simpleicons.org/vercel/ffffff'
+};
+---
+
+<section class="skills" id="skills">
+  <div class="skills-container">
+    <div class="skills-header">
+      <p class="section-label">EXPERTISE</p>
+      <h2 class="section-heading">Tools I've actually used</h2>
+      <p class="section-subtitle">No buzzwords — only tools I've shipped real tests with</p>
+    </div>
+
+    <div class="skills-grid">
+      {config.skills.map((skillGroup, index) => (
+        <div class="skill-card reveal" style={`animation-delay: ${index * 0.1}s`}>
+          <div class="skill-card-header">
+            <i data-lucide={iconMap[skillGroup.category] || 'circle'} class="skill-icon"></i>
+            <h3 class="skill-category">{skillGroup.category}</h3>
+          </div>
+          <div class="skill-items">
+            {skillGroup.items.map((tool) => (
+              <span class="skill-badge">
+                {toolIconMap[tool] && (
+                  <img src={toolIconMap[tool]} alt={tool} class="tool-icon" />
+                )}
+                {tool}
+              </span>
+            ))}
+          </div>
+        </div>
+      ))}
+    </div>
+  </div>
+</section>
+
+<style>
+  .skills {
+    padding: clamp(var(--space-12), 8vw, var(--space-24));
+    background: var(--color-bg);
+  }
+
+  .skills-container {
+    max-width: 1400px;
+    margin: 0 auto;
+  }
+
+  .skills-header {
+    margin-bottom: var(--space-12);
+    text-align: left;
+  }
+
+  .section-label {
+    font-size: var(--text-xs);
+    color: var(--color-muted);
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    font-weight: 600;
+    margin-bottom: var(--space-3);
+  }
+
+  .section-heading {
+    font-size: var(--text-xl);
+    font-weight: 600;
+    color: var(--color-text);
+    margin-bottom: var(--space-3);
+    letter-spacing: -0.02em;
+  }
+
+  .section-subtitle {
+    font-size: var(--text-base);
+    color: var(--color-muted);
+    line-height: 1.6;
+  }
+
+  .skills-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+    gap: var(--space-6);
+  }
+
+  .skill-card {
+    background: var(--color-surface);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-lg);
+    padding: var(--space-6);
+    transition: border-color 0.2s ease;
+  }
+
+  .skill-card:hover {
+    border-color: rgba(0, 229, 160, 0.3);
+  }
+
+  .skill-card-header {
+    display: flex;
+    align-items: center;
+    gap: var(--space-3);
+    margin-bottom: var(--space-5);
+  }
+
+  .skill-icon {
+    width: 20px;
+    height: 20px;
+    color: var(--color-accent);
+    flex-shrink: 0;
+  }
+
+  .skill-category {
+    font-size: var(--text-lg);
+    font-weight: 600;
+    color: var(--color-text);
+    margin: 0;
+  }
+
+  .skill-items {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-2);
+  }
+
+  .skill-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--space-2);
+    background: var(--color-surface-2);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-full);
+    padding: var(--space-1) var(--space-3);
+    font-size: var(--text-sm);
+    color: var(--color-text);
+    font-weight: 500;
+    transition: border-color 0.2s ease, background-color 0.2s ease;
+  }
+
+  .skill-badge:hover {
+    border-color: var(--color-accent);
+    background: rgba(0, 229, 160, 0.05);
+  }
+
+  .tool-icon {
+    width: 14px;
+    height: 14px;
+    flex-shrink: 0;
+  }
+
+  @media (max-width: 768px) {
+    .skills-grid {
+      grid-template-columns: 1fr;
+    }
+
+    .section-heading {
+      font-size: var(--text-2xl);
+    }
+  }
+</style>
+
+<script>
+  const observerOptions = {
+    threshold: 0.1,
+    rootMargin: '0px 0px -50px 0px'
+  };
+
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('visible');
+      }
+    });
+  }, observerOptions);
+
+  document.querySelectorAll('.skills .reveal').forEach(el => {
+    observer.observe(el);
+  });
+
+  import('https://unpkg.com/lucide@latest/dist/esm/lucide.js').then((lucide) => {
+    lucide.createIcons();
+  });
+</script>
