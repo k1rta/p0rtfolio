@@ -275,6 +275,7 @@ import { config } from '../config';
     observer.observe(el);
   });
 
+  // @ts-ignore - External CDN import
   import('https://unpkg.com/lucide@latest/dist/esm/lucide.js').then((lucide) => {
     lucide.createIcons();
   });
