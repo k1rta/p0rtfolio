@@ -1,0 +1,243 @@
+---
+import { config } from '../config';
+---
+
+<section class="experience" id="experience">
+  <div class="experience-container">
+    <div class="experience-header">
+      <p class="section-label">EXPERIENCE</p>
+      <h2 class="section-heading">10+ years in the field</h2>
+    </div>
+
+    <div class="timeline">
+      {config.experiences.map((exp, index) => (
+        <div class="timeline-entry reveal" style={`animation-delay: ${index * 0.1}s`}>
+          <div class="timeline-period">{exp.period}</div>
+          <div class="timeline-line">
+            <div class={`timeline-dot ${index === 0 ? 'timeline-dot-active' : ''}`}></div>
+          </div>
+          <div class={`timeline-content ${index === 0 ? 'timeline-content-featured' : ''}`}>
+            <div class="timeline-period-mobile">{exp.period}</div>
+            <h3 class="company-name">{exp.company}</h3>
+            <p class="role-name">{exp.role}</p>
+            <p class="achievement">{exp.achievement}</p>
+            <div class="tools">
+              {exp.tools.map((tool) => (
+                <span class="tool-badge">{tool}</span>
+              ))}
+            </div>
+          </div>
+        </div>
+      ))}
+    </div>
+  </div>
+</section>
+
+<style>
+  .experience {
+    padding: clamp(var(--space-12), 8vw, var(--space-24));
+    background: var(--color-bg);
+  }
+
+  .experience-container {
+    max-width: 1400px;
+    margin: 0 auto;
+  }
+
+  .experience-header {
+    margin-bottom: var(--space-12);
+    text-align: left;
+  }
+
+  .section-label {
+    font-size: var(--text-xs);
+    color: var(--color-muted);
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    font-weight: 600;
+    margin-bottom: var(--space-3);
+  }
+
+  .section-heading {
+    font-size: var(--text-xl);
+    font-weight: 600;
+    color: var(--color-text);
+    letter-spacing: -0.02em;
+  }
+
+  .timeline {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-12);
+  }
+
+  .timeline-entry {
+    display: grid;
+    grid-template-columns: 140px 40px 1fr;
+    gap: var(--space-6);
+    position: relative;
+  }
+
+  .timeline-period {
+    font-size: var(--text-sm);
+    color: var(--color-muted);
+    text-align: right;
+    padding-top: var(--space-1);
+    min-width: 140px;
+  }
+
+  .timeline-period-mobile {
+    display: none;
+    font-size: var(--text-sm);
+    color: var(--color-muted);
+    margin-bottom: var(--space-2);
+  }
+
+  .timeline-line {
+    position: relative;
+    display: flex;
+    justify-content: center;
+    padding-top: var(--space-1);
+  }
+
+  .timeline-line::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    bottom: calc(-1 * var(--space-12));
+    left: 50%;
+    transform: translateX(-50%);
+    width: 2px;
+    background: var(--color-border);
+  }
+
+  .timeline-entry:last-child .timeline-line::before {
+    display: none;
+  }
+
+  .timeline-dot {
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background: var(--color-accent);
+    position: relative;
+    z-index: 1;
+    flex-shrink: 0;
+  }
+
+  .timeline-dot-active {
+    width: 8px;
+    height: 8px;
+    box-shadow: 0 0 0 4px rgba(0, 229, 160, 0.2);
+  }
+
+  .timeline-content {
+    background: var(--color-surface);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-lg);
+    padding: var(--space-6);
+    transition: transform 0.2s ease, border-color 0.2s ease;
+  }
+
+  .timeline-content:hover {
+    transform: translateY(-2px);
+    border-color: rgba(0, 229, 160, 0.3);
+  }
+
+  .timeline-content-featured {
+    border-left: 2px solid var(--color-accent);
+    box-shadow: -4px 0 12px rgba(0, 229, 160, 0.1);
+  }
+
+  .company-name {
+    font-size: var(--text-lg);
+    font-weight: 700;
+    color: var(--color-text);
+    margin-bottom: var(--space-2);
+  }
+
+  .role-name {
+    font-size: var(--text-base);
+    color: var(--color-accent);
+    margin-bottom: var(--space-4);
+    font-weight: 500;
+  }
+
+  .achievement {
+    font-size: var(--text-base);
+    color: var(--color-muted);
+    line-height: 1.6;
+    margin-bottom: var(--space-4);
+  }
+
+  .tools {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-2);
+  }
+
+  .tool-badge {
+    display: inline-flex;
+    align-items: center;
+    background: var(--color-surface-2);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-full);
+    padding: var(--space-1) var(--space-3);
+    font-size: var(--text-sm);
+    color: var(--color-text);
+    font-weight: 500;
+    transition: border-color 0.2s ease, background-color 0.2s ease;
+  }
+
+  .tool-badge:hover {
+    border-color: var(--color-accent);
+    background: rgba(0, 229, 160, 0.05);
+  }
+
+  @media (max-width: 768px) {
+    .timeline-entry {
+      grid-template-columns: 20px 1fr;
+      gap: var(--space-4);
+    }
+
+    .timeline-period {
+      display: none;
+    }
+
+    .timeline-period-mobile {
+      display: block;
+    }
+
+    .timeline-line::before {
+      display: none;
+    }
+
+    .timeline-content {
+      padding: var(--space-5);
+    }
+
+    .section-heading {
+      font-size: var(--text-lg);
+    }
+  }
+</style>
+
+<script>
+  const observerOptions = {
+    threshold: 0.1,
+    rootMargin: '0px 0px -50px 0px'
+  };
+
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('visible');
+      }
+    });
+  }, observerOptions);
+
+  document.querySelectorAll('.experience .reveal').forEach(el => {
+    observer.observe(el);
+  });
+</script>
