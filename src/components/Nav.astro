@@ -1,0 +1,275 @@
+---
+---
+
+<nav class="nav">
+  <div class="nav-container">
+    <a href="#" class="logo" aria-label="Home">
+      <svg width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M8 6L8 26M8 6L24 16M8 16L20 26" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+      </svg>
+    </a>
+
+    <div class="nav-links">
+      <a href="#skills" class="nav-link" data-section="skills">Skills</a>
+      <a href="#experience" class="nav-link" data-section="experience">Experience</a>
+      <a href="#projects" class="nav-link" data-section="projects">Projects</a>
+    </div>
+
+    <div class="nav-actions">
+      <div class="availability-badge">
+        <span class="pulse-dot"></span>
+        <span class="availability-text">Available for work</span>
+      </div>
+
+      <button class="mobile-menu-toggle" aria-label="Toggle menu">
+        <i data-lucide="menu" class="icon"></i>
+      </button>
+    </div>
+  </div>
+
+  <div class="mobile-menu">
+    <a href="#skills" class="mobile-link" data-section="skills">Skills</a>
+    <a href="#experience" class="mobile-link" data-section="experience">Experience</a>
+    <a href="#projects" class="mobile-link" data-section="projects">Projects</a>
+  </div>
+</nav>
+
+<style>
+  .nav {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 100;
+    background: oklch(from var(--color-bg) l c h / 0.85);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border-bottom: 1px solid var(--color-border);
+  }
+
+  .nav-container {
+    max-width: 1400px;
+    margin: 0 auto;
+    padding: var(--space-4) clamp(var(--space-4), 4vw, var(--space-8));
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: var(--space-6);
+  }
+
+  .logo {
+    color: var(--color-text);
+    display: flex;
+    align-items: center;
+    text-decoration: none;
+    transition: color 0.2s ease;
+  }
+
+  .logo:hover {
+    color: var(--color-accent);
+  }
+
+  .nav-links {
+    display: flex;
+    gap: var(--space-6);
+    align-items: center;
+  }
+
+  .nav-link {
+    font-size: var(--text-sm);
+    color: var(--color-muted);
+    text-decoration: none;
+    font-weight: 500;
+    transition: color 0.2s ease;
+    position: relative;
+  }
+
+  .nav-link:hover {
+    color: var(--color-text);
+  }
+
+  .nav-link.active {
+    color: var(--color-accent);
+  }
+
+  .nav-link.active::after {
+    content: '';
+    position: absolute;
+    bottom: -4px;
+    left: 0;
+    right: 0;
+    height: 2px;
+    background: var(--color-accent);
+    transform: scaleX(1);
+    transform-origin: left;
+    transition: transform 0.3s ease;
+  }
+
+  .nav-link::after {
+    content: '';
+    position: absolute;
+    bottom: -4px;
+    left: 0;
+    right: 0;
+    height: 2px;
+    background: var(--color-accent);
+    transform: scaleX(0);
+    transform-origin: left;
+    transition: transform 0.3s ease;
+  }
+
+  .nav-actions {
+    display: flex;
+    align-items: center;
+    gap: var(--space-4);
+  }
+
+
+  .availability-badge {
+    display: flex;
+    align-items: center;
+    gap: var(--space-2);
+    padding: var(--space-2) var(--space-3);
+    background: var(--color-surface);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-full);
+    font-size: var(--text-xs);
+    color: var(--color-text);
+    font-weight: 500;
+  }
+
+  .pulse-dot {
+    width: 6px;
+    height: 6px;
+    background-color: #28c840;
+    border-radius: 50%;
+    animation: pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+  }
+
+  .availability-text {
+    white-space: nowrap;
+  }
+
+  .mobile-menu-toggle {
+    display: none;
+    background: transparent;
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-md);
+    padding: var(--space-2);
+    color: var(--color-muted);
+    cursor: pointer;
+    width: 36px;
+    height: 36px;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .mobile-menu-toggle .icon {
+    width: 20px;
+    height: 20px;
+  }
+
+  .mobile-menu {
+    display: none;
+    flex-direction: column;
+    gap: var(--space-2);
+    padding: var(--space-4) clamp(var(--space-4), 4vw, var(--space-8));
+    border-top: 1px solid var(--color-border);
+    background: var(--color-bg);
+  }
+
+  .mobile-menu.open {
+    display: flex;
+  }
+
+  .mobile-link {
+    font-size: var(--text-base);
+    color: var(--color-muted);
+    text-decoration: none;
+    font-weight: 500;
+    padding: var(--space-3) 0;
+    transition: color 0.2s ease;
+  }
+
+  .mobile-link:hover,
+  .mobile-link.active {
+    color: var(--color-accent);
+  }
+
+  @media (max-width: 768px) {
+    .nav-links {
+      display: none;
+    }
+
+    .availability-badge {
+      display: none;
+    }
+
+    .mobile-menu-toggle {
+      display: flex;
+    }
+  }
+
+  @media (max-width: 480px) {
+    .availability-text {
+      display: none;
+    }
+  }
+</style>
+
+<script>
+  const mobileMenuToggle = document.querySelector('.mobile-menu-toggle');
+  const mobileMenu = document.querySelector('.mobile-menu');
+  const navLinks = document.querySelectorAll('.nav-link, .mobile-link');
+
+  mobileMenuToggle?.addEventListener('click', () => {
+    mobileMenu?.classList.toggle('open');
+  });
+
+  document.querySelectorAll('.mobile-link').forEach(link => {
+    link.addEventListener('click', () => {
+      mobileMenu?.classList.remove('open');
+    });
+  });
+
+  const observerOptions = {
+    threshold: 0.3,
+    rootMargin: '-100px 0px -66% 0px'
+  };
+
+  const sections = document.querySelectorAll('section[id]');
+  let activeSection = null;
+  
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        activeSection = entry.target.id;
+      }
+    });
+
+    if (activeSection) {
+      navLinks.forEach(link => {
+        if (link.dataset.section === activeSection) {
+          link.classList.add('active');
+        } else {
+          link.classList.remove('active');
+        }
+      });
+    } else {
+      navLinks.forEach(link => link.classList.remove('active'));
+    }
+  }, observerOptions);
+
+  sections.forEach(section => observer.observe(section));
+
+  window.addEventListener('scroll', () => {
+    if (window.scrollY < 100) {
+      activeSection = null;
+      navLinks.forEach(link => link.classList.remove('active'));
+    }
+  });
+
+  import('https://unpkg.com/lucide@latest/dist/esm/lucide.js').then((lucide) => {
+    lucide.createIcons();
+  });
+</script>
