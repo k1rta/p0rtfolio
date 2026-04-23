@@ -6,8 +6,8 @@ import { config } from '../config';
   <div class="projects-container">
     <div class="projects-header">
       <p class="section-label">PROJECTS</p>
-      <h2 class="section-heading">Proof of work</h2>
-      <p class="section-subtitle">Real repos with real CI — click to explore</p>
+      <h2 class="section-heading">Things I've Built</h2>
+      <p class="section-subtitle">Real repos, real CI pipelines — click to explore</p>
     </div>
 
     <div class="projects-grid">
@@ -15,9 +15,13 @@ import { config } from '../config';
         <div class="project-card reveal" style={`animation-delay: ${index * 0.1}s`}>
           <div class="project-header">
             <h3 class="project-name">{project.name}</h3>
-            <a href={project.repoUrl} target="_blank" rel="noopener noreferrer" class="github-link" aria-label="View repository">
-              <i data-lucide="github" class="icon"></i>
-            </a>
+            {project.name === 'ML / TalTech' ? (
+              <span class="badge-in-progress">In Progress</span>
+            ) : (
+              <a href={project.repoUrl} target="_blank" rel="noopener noreferrer" class="github-link" aria-label="View repository">
+                <i data-lucide="github" class="icon"></i>
+              </a>
+            )}
           </div>
 
           {project.ciUrl && (
@@ -48,21 +52,6 @@ import { config } from '../config';
           </div>
         </div>
       ))}
-
-      <div class="project-card project-card-coming-soon reveal" style={`animation-delay: ${config.projects.length * 0.1}s`}>
-        <div class="project-header">
-          <h3 class="project-name">ML / Data Project</h3>
-          <span class="badge-in-progress">In Progress</span>
-        </div>
-
-        <p class="project-description">Colab notebook — TalTech ML coursework. Coming soon.</p>
-
-        <div class="project-tools">
-          <span class="tool-badge">Python</span>
-          <span class="tool-badge">Jupyter</span>
-          <span class="tool-badge">TensorFlow</span>
-        </div>
-      </div>
     </div>
   </div>
 </section>
@@ -127,17 +116,6 @@ import { config } from '../config';
     transform: translateY(-4px);
     border-color: rgba(0, 229, 160, 0.3);
     box-shadow: 0 8px 24px rgba(0, 0, 0, 0.3);
-  }
-
-  .project-card-coming-soon {
-    border-style: dashed;
-    border-color: var(--color-border);
-  }
-
-  .project-card-coming-soon:hover {
-    transform: translateY(-2px);
-    border-color: rgba(255, 193, 7, 0.3);
-    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.2);
   }
 
   .project-header {

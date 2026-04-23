@@ -49,45 +49,46 @@ export const config: SiteConfig = {
   
   projects: [
     {
-      name: "E2E Test Framework",
-      description: "Comprehensive end-to-end testing framework with parallel execution and visual regression testing",
-      repoUrl: "https://github.com/k1rta/e2e-framework",
-      tools: ["Playwright", "TypeScript", "Docker", "GitHub Actions"]
+      name: "p0rtfolio",
+      description: "This portfolio site — Astro, TypeScript, GitHub Actions CI, deployed on Vercel. E2E tested with Playwright.",
+      repoUrl: "https://github.com/k1rta/p0rtfolio",
+      liveUrl: "https://nekmit.vercel.app",
+      tools: ["Astro", "TypeScript 5", "GitHub Actions", "Playwright", "Vercel"]
     },
     {
-      name: "API Test Suite",
-      description: "RESTful API testing suite with contract testing and performance monitoring",
-      repoUrl: "https://github.com/k1rta/api-tests",
-      tools: ["Karate", "Java", "Grafana"]
+      name: "Cypress E2E Suite",
+      description: "End-to-end test suite from Helmes project — UI and API coverage with TypeScript and Grafana monitoring.",
+      repoUrl: "https://github.com/k1rta",
+      tools: ["Cypress E2E", "TypeScript 5", "Grafana OSS", "Karate", "CI/CD"]
     },
     {
-      name: "QA Dashboard",
-      description: "Real-time quality metrics dashboard for tracking test coverage and defect trends",
-      repoUrl: "https://github.com/k1rta/qa-dashboard",
-      tools: ["React", "TypeScript", "Power BI", "Azure"]
+      name: "ML / TalTech",
+      description: "Machine learning coursework at TalTech — data analysis and model training in Python. Coming soon.",
+      repoUrl: "https://github.com/k1rta",
+      tools: ["Python 3", "Jupyter", "TensorFlow", "Colab", "Data Analysis"]
     }
   ],
   
   skills: [
     {
       category: "Test Automation",
-      items: ["Cypress", "Playwright", "Selenium", "Karate"]
+      items: ["Cypress E2E", "Playwright TS", "Selenium Grid", "Karate"]
     },
     {
       category: "Languages",
-      items: ["TypeScript", "JavaScript", "Java", "Python"]
+      items: ["TypeScript 5", "JavaScript ES6", "Java 17", "Python 3"]
     },
     {
       category: "CI/CD",
-      items: ["GitHub Actions", "Azure DevOps", "CircleCI", "Jenkins", "Vercel"]
+      items: ["GitHub Actions", "Azure DevOps", "CircleCI", "Jenkins CI", "Vercel"]
     },
     {
       category: "Observability",
-      items: ["Grafana", "Power BI", "TestRail", "JIRA"]
+      items: ["Grafana OSS", "Power BI", "TestRail", "Jira Software"]
     },
     {
       category: "Tools & Platforms",
-      items: ["Docker", "Git", "Postman", "Chrome DevTools", "VS Code"]
+      items: ["Docker CLI", "Git Flow", "Postman API", "Chrome DevTools", "VS Code"]
     }
   ]
 };

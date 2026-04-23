@@ -7,10 +7,7 @@ const { name, title } = config.personal;
 <section class="hero">
   <div class="hero-content">
     <div class="hero-left">
-      <div class="availability reveal">
-        <span class="pulse-dot"></span>
-        <span class="availability-text">Available for work</span>
-      </div>
+      <p class="hero-meta reveal">Tallinn, Estonia · QA Engineer</p>
       
       <h1 class="hero-heading reveal">{name}</h1>
       
@@ -26,8 +23,8 @@ const { name, title } = config.personal;
       </div>
       
       <div class="hero-actions reveal">
-        <a href="#projects" class="btn btn-primary">View Projects</a>
-        <a href="#" class="btn btn-ghost" download>Download CV</a>
+        <a href="/cv.pdf" download="Kirta-Linda-Karits-CV.pdf" class="btn btn-primary">Download CV</a>
+        <a href="#projects" class="btn btn-ghost">View Projects</a>
       </div>
     </div>
     
@@ -86,25 +83,11 @@ const { name, title } = config.personal;
     text-align: left;
   }
 
-  .availability {
-    display: inline-flex;
-    align-items: center;
-    gap: var(--space-2);
+  .hero-meta {
     font-size: var(--text-sm);
-    color: var(--color-text);
-    width: fit-content;
-  }
-
-  .pulse-dot {
-    width: 8px;
-    height: 8px;
-    background-color: #28c840;
-    border-radius: 50%;
-    animation: pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
-  }
-
-  .availability-text {
-    font-weight: 500;
+    color: var(--color-muted);
+    letter-spacing: 0.05em;
+    margin-bottom: var(--space-4);
   }
 
   .hero-heading {
