@@ -19,37 +19,20 @@ test.describe('Nav — desktop', () => {
     expect(['/', '']).toContain(href);
   });
 
-  test('skills link is visible and href is #skills', async ({ page }) => {
-    const link = page.getByTestId(testids.nav.links.skills);
-    await expect(link).toBeVisible();
-    await expect(link).toHaveAttribute('href', '#skills');
-  });
+  const navLinks = [
+    { id: 'skills',     href: '#skills'     },
+    { id: 'experience', href: '#experience' },
+    { id: 'projects',   href: '#projects'   },
+    { id: 'contact',    href: '#contact'    },
+  ] as const;
 
-  test('experience link is visible and href is #experience', async ({ page }) => {
-    const link = page.getByTestId(testids.nav.links.experience);
-    await expect(link).toBeVisible();
-    await expect(link).toHaveAttribute('href', '#experience');
-  });
-
-  test('projects link is visible and href is #projects', async ({ page }) => {
-    const link = page.getByTestId(testids.nav.links.projects);
-    await expect(link).toBeVisible();
-    await expect(link).toHaveAttribute('href', '#projects');
-  });
-
-  test('contact link is visible and href is #contact', async ({ page }) => {
-    const link = page.getByTestId(testids.nav.links.contact);
-    await expect(link).toBeVisible();
-    await expect(link).toHaveAttribute('href', '#contact');
-  });
-
-  test('all nav link hrefs start with #', async ({ page }) => {
-    const ids = Object.values(testids.nav.links);
-    for (const id of ids) {
-      const href = await page.getByTestId(id).getAttribute('href');
-      expect(href).toMatch(/^#/);
-    }
-  });
+  for (const { id, href } of navLinks) {
+    test(`${id} link is visible and href is ${href}`, async ({ page }) => {
+      const link = page.getByTestId(testids.nav.links[id]);
+      await expect(link).toBeVisible();
+      await expect(link).toHaveAttribute('href', href);
+    });
+  }
 
   test('availability badge is visible on desktop', async ({ page }) => {
     await expect(page.getByTestId(testids.nav.badge)).toBeVisible();
@@ -57,7 +40,6 @@ test.describe('Nav — desktop', () => {
 
   test('nav remains visible after scrolling down', async ({ page }) => {
     await page.evaluate(() => window.scrollBy(0, 600));
-    await page.waitForTimeout(300);
     await expect(page.getByTestId(testids.nav.root)).toBeVisible();
   });
 
