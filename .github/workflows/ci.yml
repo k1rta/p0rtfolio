@@ -7,17 +7,17 @@ on:
     branches: [main]
 
 permissions:
-  contents: read
+  contents: write
   checks: write
   pull-requests: write
+  pages: write
+  id-token: write
 
 jobs:
   ci:
     name: Build & Test
     runs-on: ubuntu-latest
     timeout-minutes: 10
-    env:
-      FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: true
 
     steps:
       - uses: actions/checkout@v4
@@ -44,7 +44,7 @@ jobs:
         run: npm test
         continue-on-error: true
 
-      - name: Upload HTML report
+      - name: Upload HTML report artifact
         uses: actions/upload-artifact@v4
         if: always()
         with:
@@ -52,16 +52,25 @@ jobs:
           path: playwright-report/
           retention-days: 30
 
-      - name: Publish test summary
-        uses: dorny/test-reporter@v1
+      - name: Upload JUnit results
+        uses: actions/upload-artifact@v4
         if: always()
         with:
-          name: Playwright Tests
-          path: test-results/*.xml
-          reporter: java-junit
+          name: test-results
+          path: test-results/
+          retention-days: 7
+
+      - name: Publish report to GitHub Pages
+        if: always()
+        uses: peaceiris/actions-gh-pages@v4
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: ./playwright-report
+          destination_dir: reports/${{ github.run_id }}
+          keep_files: true
 
       - name: Post PR comment with test results
-        if: always() && github.event_name == 'pull_request'
+        if: github.event_name == 'pull_request'
         uses: actions/github-script@v7
         with:
           script: |
@@ -70,6 +79,7 @@ jobs:
             const passed = outcome === 'success';
             const icon = passed ? '✅' : '❌';
             const status = passed ? 'All tests passed — ready to merge' : 'Tests failed — merge is blocked';
+            const reportUrl = `https://k1rta.github.io/p0rtfolio/reports/${{ github.run_id }}/`;
 
             let xml = '';
             try { xml = fs.readFileSync('test-results/results.xml', 'utf8'); } catch(e) {}
@@ -99,7 +109,7 @@ jobs:
               '',
               statsTable,
               '',
-              `> 📄 Full HTML report: [Actions artifacts](https://github.com/${{ github.repository }}/actions/runs/${{ github.run_id }})`,
+              `> 📄 [View full HTML report →](${reportUrl})`,
             ].join('\n');
 
             const { data: comments } = await github.rest.issues.listComments({

@@ -1,43 +1,74 @@
-# Astro Starter Kit: Minimal
+# p0rtfolio
 
-```sh
-npm create astro@latest -- --template minimal
+![CI](https://github.com/k1rta/p0rtfolio/actions/workflows/ci.yml/badge.svg)
+
+Personal portfolio of Kirta-Linda Karits — QA Engineer & developer.  
+Built with Astro and TypeScript, tested with Playwright, deployed on Vercel.
+
+**Live:** https://p0rtfolio-two.vercel.app
+
+---
+
+## Stack
+
+| Layer | Tool |
+| :--- | :--- |
+| Framework | [Astro](https://astro.build) |
+| Language | TypeScript |
+| Testing | [Playwright](https://playwright.dev) |
+| CI/CD | GitHub Actions |
+| Hosting | Vercel |
+
+---
+
+## Getting started
+
+```bash
+npm install       # install dependencies
+npm run dev       # dev server → localhost:4321
+npm run build     # production build → ./dist/
+npm run preview   # preview production build locally
 ```
 
-> 🧑‍🚀 **Seasoned astronaut?** Delete this file. Have fun!
+---
 
-## 🚀 Project Structure
+## Testing
 
-Inside of your Astro project, you'll see the following folders and files:
+Tests use Playwright and are organised by component. Every component has
+`data-testid` attributes — all IDs are centralised in `tests/testids.ts` 
+so a rename is one change, not many.
 
-```text
-/
-├── public/
-├── src/
-│   └── pages/
-│       └── index.astro
-└── package.json
+### Run tests
+
+```bash
+npm test                  # all tests, headless
+npm run test:headed       # all tests, browser visible
+npm run test:ui           # Playwright UI mode (interactive)
+npm run test:report       # open last HTML report in browser
+npm run test:nav          # Nav component tests only
 ```
 
-Astro looks for `.astro` or `.md` files in the `src/pages/` directory. Each page is exposed as a route based on its file name.
+### Structure
 
-There's nothing special about `src/components/`, but that's where we like to put any Astro/React/Vue/Svelte/Preact components.
+```
+tests/
+├── components/
+│   └── nav.spec.ts       # Nav component tests
+├── testids.ts            # Centralised test IDs
+└── playwright.config.ts  # Playwright configuration
+```
 
-Any static assets, like images, can be placed in the `public/` directory.
+### CI behaviour
 
-## 🧞 Commands
+Every push and pull request runs:
 
-All commands are run from the root of the project, from a terminal:
+1. **Type check** — `tsc --noEmit` 
+2. **Build** — `astro build` 
+3. **Tests** — Playwright against the built site
+4. **Report** — published to GitHub Pages, linked in the PR comment
+5. **Gate** — merging to `main` is blocked if any test fails
 
-| Command                   | Action                                           |
-| :------------------------ | :----------------------------------------------- |
-| `npm install`             | Installs dependencies                            |
-| `npm run dev`             | Starts local dev server at `localhost:4321`      |
-| `npm run build`           | Build your production site to `./dist/`          |
-| `npm run preview`         | Preview your build locally, before deploying     |
-| `npm run astro ...`       | Run CLI commands like `astro add`, `astro check` |
-| `npm run astro -- --help` | Get help using the Astro CLI                     |
+PR comments show a live pass/fail table with a direct link to the full
+interactive HTML report including screenshots and traces on failure.
 
-## 👀 Want to learn more?
-
-Feel free to check [our documentation](https://docs.astro.build) or jump into our [Discord server](https://astro.build/chat).
+**Test reports:** https://k1rta.github.io/p0rtfolio/reports/
