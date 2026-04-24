@@ -1,23 +1,23 @@
 ---
 ---
 
-<nav class="nav">
+<nav class="nav" data-testid="nav">
   <div class="nav-container">
-    <a href="#" class="logo" aria-label="Home">
+    <a href="/" class="logo" aria-label="Home" data-testid="nav-logo">
       <svg width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
         <path d="M8 6L8 26M8 6L24 16M8 16L20 26" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
       </svg>
     </a>
 
     <div class="nav-links">
-      <a href="#skills" class="nav-link" data-section="skills">Skills</a>
-      <a href="#experience" class="nav-link" data-section="experience">Experience</a>
-      <a href="#projects" class="nav-link" data-section="projects">Projects</a>
-      <a href="#contact" class="nav-link" data-section="contact">Contact</a>
+      <a href="#skills" class="nav-link" data-section="skills" data-testid="nav-link-skills">Skills</a>
+      <a href="#experience" class="nav-link" data-section="experience" data-testid="nav-link-experience">Experience</a>
+      <a href="#projects" class="nav-link" data-section="projects" data-testid="nav-link-projects">Projects</a>
+      <a href="#contact" class="nav-link" data-section="contact" data-testid="nav-link-contact">Contact</a>
     </div>
 
     <div class="nav-actions">
-      <div class="availability-badge">
+      <div class="availability-badge" data-testid="availability-badge">
         <span class="pulse-dot"></span>
         <span class="availability-text">Available for work</span>
       </div>
@@ -242,7 +242,7 @@
   };
 
   const sections = document.querySelectorAll('section[id]');
-  let activeSection = null;
+  let activeSection: string | null = null;
   
   const observer = new IntersectionObserver((entries) => {
     entries.forEach(entry => {
@@ -253,7 +253,8 @@
 
     if (activeSection) {
       navLinks.forEach(link => {
-        if (link.dataset.section === activeSection) {
+        const htmlLink = link as HTMLElement;
+        if (htmlLink.dataset.section === activeSection) {
           link.classList.add('active');
         } else {
           link.classList.remove('active');
@@ -273,6 +274,7 @@
     }
   });
 
+  // @ts-ignore - External CDN import
   import('https://unpkg.com/lucide@latest/dist/esm/lucide.js').then((lucide) => {
     lucide.createIcons();
   });

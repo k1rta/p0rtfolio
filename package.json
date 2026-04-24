@@ -9,7 +9,12 @@
     "dev": "astro dev",
     "build": "astro build",
     "preview": "astro preview",
-    "astro": "astro"
+    "astro": "astro",
+    "test": "playwright test",
+    "test:headed": "playwright test --headed",
+    "test:ui": "playwright test --ui",
+    "test:report": "playwright show-report",
+    "test:nav": "playwright test tests/components/nav.spec.ts"
   },
   "dependencies": {
     "@tailwindcss/vite": "^4.2.4",
@@ -17,6 +22,8 @@
     "tailwindcss": "^4.2.4"
   },
   "devDependencies": {
+    "@playwright/test": "^1.59.1",
+    "@types/node": "^25.6.0",
     "typescript": "^5.9.3"
   }
 }

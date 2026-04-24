@@ -258,24 +258,7 @@ import { config } from '../config';
 </style>
 
 <script>
-  const observerOptions = {
-    threshold: 0.1,
-    rootMargin: '0px 0px -50px 0px'
-  };
-
-  const observer = new IntersectionObserver((entries) => {
-    entries.forEach(entry => {
-      if (entry.isIntersecting) {
-        entry.target.classList.add('visible');
-      }
-    });
-  }, observerOptions);
-
-  document.querySelectorAll('.projects .reveal').forEach(el => {
-    observer.observe(el);
-  });
-
-  import('https://unpkg.com/lucide@latest/dist/esm/lucide.js').then((lucide) => {
-    lucide.createIcons();
-  });
+  import { initRevealObserver, initLucideIcons } from '../utils/reveal';
+  initRevealObserver('.projects');
+  initLucideIcons();
 </script>
