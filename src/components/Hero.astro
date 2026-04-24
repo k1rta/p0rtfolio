@@ -23,8 +23,8 @@ const { name, title } = config.personal;
       </div>
       
       <div class="hero-actions reveal">
-        <a href="/cv.pdf" download="Kirta-Linda-Karits-CV.pdf" class="btn btn-primary">Download CV</a>
-        <a href="#projects" class="btn btn-ghost">View Projects</a>
+        <a href="#projects" class="btn btn-primary">View Projects</a>
+        <a href="/cv.pdf" download="Kirta-Linda-Karits-CV.pdf" class="btn btn-ghost">Download CV</a>
       </div>
     </div>
     
@@ -305,20 +305,6 @@ const { name, title } = config.personal;
 </style>
 
 <script>
-  const observerOptions = {
-    threshold: 0.1,
-    rootMargin: '0px 0px -50px 0px'
-  };
-
-  const observer = new IntersectionObserver((entries) => {
-    entries.forEach(entry => {
-      if (entry.isIntersecting) {
-        entry.target.classList.add('visible');
-      }
-    });
-  }, observerOptions);
-
-  document.querySelectorAll('.reveal').forEach(el => {
-    observer.observe(el);
-  });
+  import { initRevealObserver } from '../utils/reveal';
+  initRevealObserver();
 </script>
