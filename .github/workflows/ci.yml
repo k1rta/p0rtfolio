@@ -39,6 +39,10 @@ jobs:
       - name: Install Playwright browsers
         run: npx playwright install chromium --with-deps
 
+      - name: Clean previous test results
+        run: rm -rf test-results/ playwright-report/
+        if: always()
+
       - name: Run tests
         id: run_tests
         run: npm test
