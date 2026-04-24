@@ -4,7 +4,6 @@ import { testids } from '../testids';
 test.describe('Nav — desktop', () => {
 
   test.beforeEach(async ({ page }) => {
-    await page.setViewportSize({ width: 1280, height: 800 });
     await page.goto('/');
   });
 
@@ -48,7 +47,6 @@ test.describe('Nav — desktop', () => {
 test.describe('Nav — mobile', () => {
 
   test.beforeEach(async ({ page }) => {
-    await page.setViewportSize({ width: 375, height: 812 });
     await page.goto('/');
   });
 

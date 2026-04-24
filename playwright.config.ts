@@ -20,8 +20,14 @@ export default defineConfig({
   },
   projects: [
     {
-      name: 'chromium',
+      name: 'desktop',
       use: { ...devices['Desktop Chrome'] },
+      grep: /desktop/,  // only runs describe blocks with "desktop" in the name
+    },
+    {
+      name: 'mobile',
+      use: { ...devices['Pixel 5'] },
+      grep: /mobile/,   // only runs describe blocks with "mobile" in the name
     },
   ],
   webServer: BASE_URL.includes('localhost')
