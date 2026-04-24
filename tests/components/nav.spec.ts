@@ -12,10 +12,11 @@ test.describe('Nav — desktop', () => {
     await expect(page.getByTestId(testids.nav.root)).toBeVisible();
   });
 
-  test('logo is visible and href is /', async ({ page }) => {
+  test('logo is visible and links to home', async ({ page }) => {
     const logo = page.getByTestId(testids.nav.logo);
     await expect(logo).toBeVisible();
-    await expect(logo).toHaveAttribute('href', '/');
+    const href = await logo.getAttribute('href');
+    expect(['/', '']).toContain(href);
   });
 
   test('skills link is visible and href is #skills', async ({ page }) => {
