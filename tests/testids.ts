@@ -1,6 +1,7 @@
 export const testids = {
   nav: {
     root: 'nav',
+    container: 'nav',
     logo: 'nav-logo',
     links: {
       skills: 'nav-link-skills',
