@@ -1,7 +1,7 @@
 export const testids = {
   nav: {
     root: 'nav',
-    logo: 'nav-logo1',
+    logo: 'nav-logo',
     links: {
       skills: 'nav-link-skills',
       experience: 'nav-link-experience',
