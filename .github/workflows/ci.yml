@@ -75,7 +75,7 @@ jobs:
             const outcome = '${{ steps.run_tests.outcome }}';
             const passed = outcome === 'success';
             const icon = passed ? '✅' : '❌';
-            const status = passed ? 'All tests passed' : 'Tests failed — merge is blocked';
+            const status = passed ? 'All tests passed — ready to merge' : 'Tests failed — merge is blocked';
 
             let xml = '';
             try { xml = fs.readFileSync('test-results/results.xml', 'utf8'); } catch(e) {}
@@ -87,21 +87,25 @@ jobs:
               failed += parseInt(m[2]);
               skipped += parseInt(m[3]);
             });
-            const passed_count = total - failed - skipped;
+            const passedCount = total - failed - skipped;
+            const hasResults = total > 0;
+            const statsTable = hasResults ? [
+              '| Result | Count |',
+              '|--------|-------|',
+              `| ✅ Passed | ${passedCount} |`,
+              `| ❌ Failed | ${failed} |`,
+              `| ⏭️ Skipped | ${skipped} |`,
+              `| 📋 Total | ${total} |`,
+            ].join('\n') : '_No test results found — build may have failed before tests ran._';
 
             const body = [
               `## ${icon} Playwright Test Results`,
               '',
               `**${status}**`,
               '',
-              '| Result | Count |',
-              '|--------|-------|',
-              `| ✅ Passed | ${passed_count} |`,
-              `| ❌ Failed | ${failed} |`,
-              `| ⏭️ Skipped | ${skipped} |`,
-              `| 📋 Total | ${total} |`,
+              statsTable,
               '',
-              `> Full HTML report available in [Actions artifacts](https://github.com/${{ github.repository }}/actions/runs/${{ github.run_id }})`,
+              `> 📄 Full HTML report: [Actions artifacts](https://github.com/${{ github.repository }}/actions/runs/${{ github.run_id }})`,
             ].join('\n');
 
             const { data: comments } = await github.rest.issues.listComments({
