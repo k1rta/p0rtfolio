@@ -1,11 +1,12 @@
 # p0rtfolio
 
-![CI](https://github.com/k1rta/p0rtfolio/actions/workflows/ci.yml/badge.svg)
+[![CI](https://github.com/k1rta/p0rtfolio/actions/workflows/ci.yml/badge.svg)](https://github.com/k1rta/p0rtfolio/actions/workflows/ci.yml)
 
 Personal portfolio of Kirta-Linda Karits — QA Engineer & developer.  
 Built with Astro and TypeScript, tested with Playwright, deployed on Vercel.
 
-**Live:** https://p0rtfolio-two.vercel.app
+**Live:** https://p0rtfolio-two.vercel.app  
+**Test Reports:** https://k1rta.github.io/p0rtfolio/ _(always shows latest)_
 
 ---
 
@@ -53,22 +54,25 @@ npm run test:nav          # Nav component tests only
 ```
 tests/
 ├── components/
-│   └── nav.spec.ts       # Nav component tests
-├── testids.ts            # Centralised test IDs
-└── playwright.config.ts  # Playwright configuration
+│   └── nav.spec.ts       # Nav component tests (desktop + mobile)
+└── testids.ts            # Centralised data-testid constants
+
+playwright.config.ts      # Playwright configuration (root level)
 ```
 
 ### CI behaviour
 
 Every push and pull request runs:
 
-1. **Type check** — `tsc --noEmit` 
-2. **Build** — `astro build` 
+1. **Type check** — `tsc --noEmit`
+2. **Build** — `astro build`
 3. **Tests** — Playwright against the built site
-4. **Report** — published to GitHub Pages, linked in the PR comment
-5. **Gate** — merging to `main` is blocked if any test fails
+4. **Report** — published to GitHub Pages at a unique URL per run
+5. **Redirect** — root index updated to always point to the latest report
+6. **Gate** — merging to `main` is blocked if any test fails
 
 PR comments show a live pass/fail table with a direct link to the full
 interactive HTML report including screenshots and traces on failure.
 
-**Test reports:** https://k1rta.github.io/p0rtfolio/reports/
+**Latest report:** <https://k1rta.github.io/p0rtfolio/> _(auto-redirects)_  
+**All reports:** <https://k1rta.github.io/p0rtfolio/reports/> _(archived by run ID)_
