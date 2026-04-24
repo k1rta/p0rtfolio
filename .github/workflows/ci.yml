@@ -80,13 +80,10 @@ jobs:
             let xml = '';
             try { xml = fs.readFileSync('test-results/results.xml', 'utf8'); } catch(e) {}
 
-            const suiteMatches = [...xml.matchAll(/tests="(\d+)" failures="(\d+)" skipped="(\d+)"/g)];
-            let total = 0, failed = 0, skipped = 0;
-            suiteMatches.forEach(m => {
-              total += parseInt(m[1]);
-              failed += parseInt(m[2]);
-              skipped += parseInt(m[3]);
-            });
+            const rootMatch = xml.match(/<testsuites[^>]*tests="(\d+)"[^>]*failures="(\d+)"[^>]*skipped="(\d+)"/s);
+            const total    = rootMatch ? parseInt(rootMatch[1]) : 0;
+            const failed   = rootMatch ? parseInt(rootMatch[2]) : 0;
+            const skipped  = rootMatch ? parseInt(rootMatch[3]) : 0;
             const passedCount = total - failed - skipped;
             const hasResults = total > 0;
             const statsTable = hasResults ? [
