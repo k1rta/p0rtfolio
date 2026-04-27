@@ -25,6 +25,7 @@ export default defineConfig({
       name: 'desktop',
       use: { ...devices['Desktop Chrome'] },
       grep: /desktop|accessibility/,
+      grepInvert: /mobile/,  // exclude mobile tests
     },
     {
       // Runs all describe blocks that contain "mobile"
