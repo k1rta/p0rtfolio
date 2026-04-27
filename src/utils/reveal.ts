@@ -19,8 +19,6 @@ export function initRevealObserver(scope?: string): void {
 }
 
 export function initLucideIcons(): void {
-  // @ts-ignore - External CDN import
-  import('https://unpkg.com/lucide@latest/dist/esm/lucide.js').then((lucide) => {
-    lucide.createIcons();
-  });
+  // Lucide icons are now inline SVGs in components
+  // This function is kept for backward compatibility but does nothing
 }

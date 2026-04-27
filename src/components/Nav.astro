@@ -1,8 +1,10 @@
 ---
 ---
 
-<nav class="nav" data-testid="nav">
-  <div class="nav-container">
+<a href="#main-content" class="skip-link">Skip to main content</a>
+
+<nav class="nav" aria-label="Primary" data-testid="nav">
+  <div class="nav-container" data-testid="nav-container">
     <a href="/" class="logo" aria-label="Home" data-testid="nav-logo">
       <svg width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
         <path d="M8 6L8 26M8 6L24 16M8 16L20 26" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
@@ -22,13 +24,23 @@
         <span class="availability-text">Available for work</span>
       </div>
 
-      <button class="mobile-menu-toggle" aria-label="Toggle menu">
-        <i data-lucide="menu" class="icon"></i>
+      <button 
+        class="mobile-menu-toggle" 
+        aria-label="Open menu"
+        aria-expanded="false"
+        aria-controls="mobile-menu"
+        data-testid="mobile-menu-toggle"
+      >
+        <svg class="icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <line x1="3" y1="12" x2="21" y2="12"></line>
+          <line x1="3" y1="6" x2="21" y2="6"></line>
+          <line x1="3" y1="18" x2="21" y2="18"></line>
+        </svg>
       </button>
     </div>
   </div>
 
-  <div class="mobile-menu">
+  <div id="mobile-menu" class="mobile-menu" hidden data-testid="mobile-menu">
     <a href="#skills" class="mobile-link" data-section="skills">Skills</a>
     <a href="#experience" class="mobile-link" data-section="experience">Experience</a>
     <a href="#projects" class="mobile-link" data-section="projects">Projects</a>
@@ -37,6 +49,23 @@
 </nav>
 
 <style>
+  .skip-link {
+    position: absolute;
+    top: -40px;
+    left: 0;
+    background: var(--color-accent);
+    color: var(--color-bg);
+    padding: var(--space-2) var(--space-4);
+    text-decoration: none;
+    font-weight: 600;
+    z-index: 200;
+    border-radius: 0 0 var(--radius-md) 0;
+  }
+
+  .skip-link:focus {
+    top: 0;
+  }
+
   .nav {
     position: fixed;
     top: 0;
@@ -174,7 +203,7 @@
   }
 
   .mobile-menu {
-    display: none;
+    display: flex;
     flex-direction: column;
     gap: var(--space-2);
     padding: var(--space-4) clamp(var(--space-4), 4vw, var(--space-8));
@@ -182,8 +211,8 @@
     background: var(--color-bg);
   }
 
-  .mobile-menu.open {
-    display: flex;
+  .mobile-menu[hidden] {
+    display: none;
   }
 
   .mobile-link {
@@ -221,20 +250,56 @@
   }
 </style>
 
-<script>
+<script is:inline>
   const mobileMenuToggle = document.querySelector('.mobile-menu-toggle');
   const mobileMenu = document.querySelector('.mobile-menu');
   const navLinks = document.querySelectorAll('.nav-link, .mobile-link');
 
-  mobileMenuToggle?.addEventListener('click', () => {
-    mobileMenu?.classList.toggle('open');
+  function closeMobileMenu() {
+    if (mobileMenu && mobileMenuToggle) {
+      mobileMenu.hidden = true;
+      mobileMenuToggle.setAttribute('aria-expanded', 'false');
+      mobileMenuToggle.setAttribute('aria-label', 'Open menu');
+    }
+  }
+
+  function openMobileMenu() {
+    if (mobileMenu && mobileMenuToggle) {
+      mobileMenu.hidden = false;
+      mobileMenuToggle.setAttribute('aria-expanded', 'true');
+      mobileMenuToggle.setAttribute('aria-label', 'Close menu');
+    }
+  }
+
+  function toggleMobileMenu() {
+    if (mobileMenu && mobileMenu.hidden) {
+      openMobileMenu();
+    } else {
+      closeMobileMenu();
+    }
+  }
+
+  if (mobileMenuToggle) {
+    mobileMenuToggle.addEventListener('click', toggleMobileMenu);
+  }
+
+  document.querySelectorAll('.mobile-link').forEach(function(link) {
+    link.addEventListener('click', closeMobileMenu);
   });
 
-  document.querySelectorAll('.mobile-link').forEach(link => {
-    link.addEventListener('click', () => {
-      mobileMenu?.classList.remove('open');
-    });
+  document.addEventListener('keydown', function(e) {
+    if (e.key === 'Escape' && mobileMenu && !mobileMenu.hidden) {
+      closeMobileMenu();
+    }
   });
+
+  const mediaQuery = window.matchMedia('(min-width: 769px)');
+  function handleViewportChange(e) {
+    if (e.matches) {
+      closeMobileMenu();
+    }
+  }
+  mediaQuery.addEventListener('change', handleViewportChange);
 
   const observerOptions = {
     threshold: 0.3,
@@ -242,40 +307,40 @@
   };
 
   const sections = document.querySelectorAll('section[id]');
-  let activeSection: string | null = null;
+  let activeSection = null;
   
-  const observer = new IntersectionObserver((entries) => {
-    entries.forEach(entry => {
+  const observer = new IntersectionObserver(function(entries) {
+    entries.forEach(function(entry) {
       if (entry.isIntersecting) {
         activeSection = entry.target.id;
       }
     });
 
     if (activeSection) {
-      navLinks.forEach(link => {
-        const htmlLink = link as HTMLElement;
-        if (htmlLink.dataset.section === activeSection) {
+      navLinks.forEach(function(link) {
+        if (link.dataset && link.dataset.section === activeSection) {
           link.classList.add('active');
         } else {
           link.classList.remove('active');
         }
       });
     } else {
-      navLinks.forEach(link => link.classList.remove('active'));
+      navLinks.forEach(function(link) {
+        link.classList.remove('active');
+      });
     }
   }, observerOptions);
 
-  sections.forEach(section => observer.observe(section));
-
-  window.addEventListener('scroll', () => {
-    if (window.scrollY < 100) {
-      activeSection = null;
-      navLinks.forEach(link => link.classList.remove('active'));
-    }
+  sections.forEach(function(section) {
+    observer.observe(section);
   });
 
-  // @ts-ignore - External CDN import
-  import('https://unpkg.com/lucide@latest/dist/esm/lucide.js').then((lucide) => {
-    lucide.createIcons();
+  window.addEventListener('scroll', function() {
+    if (window.scrollY < 100) {
+      activeSection = null;
+      navLinks.forEach(function(link) {
+        link.classList.remove('active');
+      });
+    }
   });
 </script>
