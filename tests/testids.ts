@@ -10,7 +10,9 @@ export const testids = {
       contact: 'nav-link-contact',
     },
     badge: 'availability-badge',
+    badgeMobile: 'availability-badge-mobile',
     mobileMenuToggle: 'mobile-menu-toggle',
     mobileMenu: 'mobile-menu',
+    mobileBackdrop: 'mobile-backdrop',
   },
 } as const;
