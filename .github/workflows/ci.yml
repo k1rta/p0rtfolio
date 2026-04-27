@@ -1,4 +1,4 @@
-name: CI
+name: ci
 
 env:
   FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: true
@@ -18,7 +18,7 @@ permissions:
 
 jobs:
   ci:
-    name: Build & Test
+    name: build & test
     runs-on: ubuntu-latest
     timeout-minutes: 10
 
@@ -67,31 +67,26 @@ jobs:
           path: test-results/
           retention-days: 7
 
-      - name: Publish report to GitHub Pages
-        if: always()
-        uses: peaceiris/actions-gh-pages@v4
-        with:
-          github_token: ${{ secrets.GITHUB_TOKEN }}
-          publish_dir: ./playwright-report
-          destination_dir: reports/${{ github.run_id }}
-          keep_files: true
-
-      - name: Create latest report redirect
+      - name: Prepare GitHub Pages content
         if: always()
         run: |
-          mkdir -p gh-pages-root
-          cat > gh-pages-root/index.html << EOF
+          rm -rf gh-pages-dist
+          mkdir -p gh-pages-dist/reports/${{ github.run_id }}
+
+          cp -R playwright-report/. gh-pages-dist/reports/${{ github.run_id }}/
+
+          cat > gh-pages-dist/index.html << EOF
           <!DOCTYPE html>
           <meta http-equiv="refresh" content="0; url=reports/${{ github.run_id }}/">
           <a href="reports/${{ github.run_id }}/">View latest test report →</a>
           EOF
 
-      - name: Publish redirect to GitHub Pages root
+      - name: Publish report and redirect to GitHub Pages
         if: always()
         uses: peaceiris/actions-gh-pages@v4
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
-          publish_dir: ./gh-pages-root
+          publish_dir: ./gh-pages-dist
           keep_files: true
 
       - name: Post PR comment with test results
